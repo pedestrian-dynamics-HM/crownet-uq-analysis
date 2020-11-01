@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
     seed = 111
-    par_var = get_sampling(nr_samples=8, seed=seed, is_test=True)
+    par_var = get_sampling(nr_samples=2000, seed=seed, is_test=False)
 
     output_folder = os.path.join(os.getcwd(), "output")
 
@@ -173,7 +173,7 @@ if __name__ == "__main__":
     simulations = setup.get_simulations()
     simulations.to_csv(os.path.join(summary, "simulations.csv"))
 
-    par_var, data = setup.run(2)
+    par_var, data = setup.run(15)
 
     par_var.to_csv(os.path.join(summary, "metainfo.csv"))
 
