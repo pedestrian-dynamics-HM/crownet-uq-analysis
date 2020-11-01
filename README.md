@@ -1,11 +1,20 @@
 # mdpi-rover-2020
 
 ## Init and update submodules
+Init the submodules if necessary
 Use
 ```
+git submodule init
+git submodule submodule --recursive
 cd rover-main
 git submodule init
-git submodule update --recursive
+git submodule submodule --recursive
+cd ..
+```
+To produce the results presented in the MDPI article, use
+
+```
+./checkout_mdpi_state
 ```
 ## Set up the simulation model
 
