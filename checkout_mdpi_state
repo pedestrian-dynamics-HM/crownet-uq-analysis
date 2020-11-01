@@ -1,4 +1,8 @@
 #!/bin/bash
+base="$PWD"
+echo "#######################################"
+echo $base
+echo "#######################################"
 
 echo "Pull git repos"
 
@@ -6,15 +10,15 @@ echo "#######################################"
 echo "#######################################"
 echo "#######################################"
 echo "Pull rover-main"
-pushd "$PWD/rover-main"
+pushd "$base/rover-main"
 git pull
 git checkout "24df459da93147117ea8e5402176deb7d93ce5fd"
 git submodule update --recursive
 
 echo "Pull suqc"
-pushd "$PWD/suq-controller"
+pushd "$base/suq-controller"
 git pull
-git checkout "91b1e91140a2dbd29fe7d9eae9a02719e61f3b88"
+git checkout "b1c87aaf5fff99927e050f1595978ead5b3a1db9"
 
 echo "#######################################"
 echo "#######################################"

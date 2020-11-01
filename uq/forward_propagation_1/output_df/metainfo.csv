@@ -1,9 +1,9 @@
 id,run_id,"('Parameter', 'dummy', 'number_of_agents_mean')","('Parameter', 'omnet', '**wlan[*].radio.transmitter.power')","('Parameter', 'omnet', '*.hostMobile[*].app[1].messageLength')","('Parameter', 'omnet', '*.manager.host')","('Parameter', 'omnet', '*.manager.useVadereSeed')","('Parameter', 'vadere', 'attributesSimulation.useFixedSeed')","('Parameter', 'vadere', 'sources.[id==1].distributionParameters')","('Parameter', 'vadere', 'sources.[id==2].distributionParameters')","('Parameter', 'vadere', 'sources.[id==5].distributionParameters')","('Parameter', 'vadere', 'sources.[id==6].distributionParameters')","('MetaInfo', 'required_wallclock_time')","('MetaInfo', 'return_code')"
-0,0,30,1.28mW,492B,"""vadere_Sample__0_0""",true,True,[0.075],[0.075],[0.075],[0.075],45.55137300491333,0.0
-1,0,30,1.28mW,492B,"""vadere_Sample__1_0""",true,True,[0.075],[0.075],[0.075],[0.075],44.24102473258972,0.0
-2,0,30,1.28mW,1408B,"""vadere_Sample__2_0""",true,True,[0.075],[0.075],[0.075],[0.075],43.41999077796936,0.0
-3,0,30,1.86mW,492B,"""vadere_Sample__3_0""",true,True,[0.075],[0.075],[0.075],[0.075],47.4799063205719,0.0
-4,0,30,1.86mW,1408B,"""vadere_Sample__4_0""",true,True,[0.075],[0.075],[0.075],[0.075],75.0644633769989,0.0
-5,0,30,1.86mW,492B,"""vadere_Sample__5_0""",true,True,[0.075],[0.075],[0.075],[0.075],46.94472861289978,0.0
-6,0,30,1.28mW,1408B,"""vadere_Sample__6_0""",true,True,[0.075],[0.075],[0.075],[0.075],48.6935613155365,0.0
-7,0,30,1.86mW,1408B,"""vadere_Sample__7_0""",true,True,[0.075],[0.075],[0.075],[0.075],65.12448954582214,0.0
+0,0,30,1.28mW,492B,"""vadere_Sample__0_0""",true,True,[0.075],[0.075],[0.075],[0.075],47.14386796951294,0.0
+1,0,30,1.28mW,492B,"""vadere_Sample__1_0""",true,True,[0.075],[0.075],[0.075],[0.075],46.240797996520996,0.0
+2,0,30,1.28mW,1408B,"""vadere_Sample__2_0""",true,True,[0.075],[0.075],[0.075],[0.075],48.3953754901886,0.0
+3,0,30,1.86mW,492B,"""vadere_Sample__3_0""",true,True,[0.075],[0.075],[0.075],[0.075],47.44519925117493,0.0
+4,0,30,1.86mW,1408B,"""vadere_Sample__4_0""",true,True,[0.075],[0.075],[0.075],[0.075],79.22248935699463,0.0
+5,0,30,1.86mW,492B,"""vadere_Sample__5_0""",true,True,[0.075],[0.075],[0.075],[0.075],44.28594732284546,0.0
+6,0,30,1.28mW,1408B,"""vadere_Sample__6_0""",true,True,[0.075],[0.075],[0.075],[0.075],46.881136655807495,0.0
+7,0,30,1.86mW,1408B,"""vadere_Sample__7_0""",true,True,[0.075],[0.075],[0.075],[0.075],60.664196491241455,0.0
