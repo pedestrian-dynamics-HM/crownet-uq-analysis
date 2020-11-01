@@ -1,0 +1,55 @@
+#!/bin/bash
+
+s="$PWD"
+s="${s%/*}"
+echo $s
+
+echo "Create virtual python environment in ${PWD}/.venv"
+python3 -m venv .venv
+
+VENV="$PWD/.venv"
+
+echo "#######################################"
+echo "#######################################"
+echo "#######################################"
+
+# install suqc
+echo "Install suqc"
+ANALYZER="$s/suq-controller"
+pushd "$ANALYZER"
+echo $(ls)
+rm -r dist
+rm -r build
+rm -r suqc.egg-info
+. "$VENV/bin/activate"
+pip3 install -r requirements.txt
+python3 setup.py install
+$VENV/bin/easy_install $VENV/lib/python3.6/site-packages/suqc-2.2-py3.6.egg --always-copy
+popd
+echo $(ls)
+
+# install roveranalyzer
+ANALYZER="$s/rover-main/analysis/roveranalyzer"
+pushd "$ANALYZER"
+echo "-----------"
+echo $(ls)
+echo "-----------"
+rm -r dist
+rm -r build
+rm -r roveranalyzer.egg-info
+$VENV/bin/python3 setup.py install
+$VENV/bin/easy_install $VENV/lib/python3.6/site-packages/roveranalyzer-1.2-py3.6.egg --always-copy
+popd
+$VENV/bin/pip3 install --upgrade setuptools
+$VENV/bin/pip3 install --upgrade pip
+$VENV/bin/pip3 install SALib --no-cache-dir
+
+
+
+
+
+
+
+
+
+

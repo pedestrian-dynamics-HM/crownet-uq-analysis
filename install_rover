@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo "#######################################"
+echo "#######################################"
+echo "#######################################"
+
+echo "Build omnet"
+pushd "$HOME/repos/rover-main/scripts"
+source roverenv
+
+pushd "$HOME/repos/rover-main"
+omnetpp exec make makefiles
+omnetpp exec make MODE=release
+
+echo "#######################################"
+echo "#######################################"
+echo "#######################################"
+echo "Build vadere container"
+pushd "$HOME/repos/rover-main/docker/vadere"
+
+
+
+
+
+
+
+

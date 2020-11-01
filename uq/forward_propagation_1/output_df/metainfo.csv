@@ -1,0 +1,9 @@
+id,run_id,"('Parameter', 'dummy', 'number_of_agents_mean')","('Parameter', 'omnet', '**wlan[*].radio.transmitter.power')","('Parameter', 'omnet', '*.hostMobile[*].app[1].messageLength')","('Parameter', 'omnet', '*.manager.host')","('Parameter', 'omnet', '*.manager.useVadereSeed')","('Parameter', 'vadere', 'attributesSimulation.useFixedSeed')","('Parameter', 'vadere', 'sources.[id==1].distributionParameters')","('Parameter', 'vadere', 'sources.[id==2].distributionParameters')","('Parameter', 'vadere', 'sources.[id==5].distributionParameters')","('Parameter', 'vadere', 'sources.[id==6].distributionParameters')","('MetaInfo', 'required_wallclock_time')","('MetaInfo', 'return_code')"
+0,0,30,1.28mW,492B,"""vadere_Sample__0_0""",true,True,[0.075],[0.075],[0.075],[0.075],45.32863450050354,0.0
+1,0,30,1.28mW,492B,"""vadere_Sample__1_0""",true,True,[0.075],[0.075],[0.075],[0.075],45.37583088874817,0.0
+2,0,30,1.28mW,1408B,"""vadere_Sample__2_0""",true,True,[0.075],[0.075],[0.075],[0.075],48.301769971847534,0.0
+3,0,30,1.86mW,492B,"""vadere_Sample__3_0""",true,True,[0.075],[0.075],[0.075],[0.075],45.33726739883423,0.0
+4,0,30,1.86mW,1408B,"""vadere_Sample__4_0""",true,True,[0.075],[0.075],[0.075],[0.075],-1.0,-1.0
+5,0,30,1.86mW,492B,"""vadere_Sample__5_0""",true,True,[0.075],[0.075],[0.075],[0.075],-1.0,-1.0
+6,0,30,1.28mW,1408B,"""vadere_Sample__6_0""",true,True,[0.075],[0.075],[0.075],[0.075],-1.0,-1.0
+7,0,30,1.86mW,1408B,"""vadere_Sample__7_0""",true,True,[0.075],[0.075],[0.075],[0.075],-1.0,-1.0

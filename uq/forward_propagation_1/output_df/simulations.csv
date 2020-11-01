@@ -1,0 +1,12 @@
+,,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter
+,,dummy,omnet,omnet,omnet,omnet,vadere,vadere,vadere,vadere,vadere
+,,number_of_agents_mean,**wlan[*].radio.transmitter.power,*.hostMobile[*].app[1].messageLength,*.manager.host,*.manager.useVadereSeed,attributesSimulation.useFixedSeed,sources.[id==1].distributionParameters,sources.[id==2].distributionParameters,sources.[id==5].distributionParameters,sources.[id==6].distributionParameters
+id,run_id,,,,,,,,,,
+0,0,30,1.28mW,492B,"""vadere_Sample__0_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+1,0,30,1.28mW,492B,"""vadere_Sample__1_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+2,0,30,1.28mW,1408B,"""vadere_Sample__2_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+3,0,30,1.86mW,492B,"""vadere_Sample__3_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+4,0,30,1.86mW,1408B,"""vadere_Sample__4_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+5,0,30,1.86mW,492B,"""vadere_Sample__5_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+6,0,30,1.28mW,1408B,"""vadere_Sample__6_0""",true,True,[0.075],[0.075],[0.075],[0.075]
+7,0,30,1.86mW,1408B,"""vadere_Sample__7_0""",true,True,[0.075],[0.075],[0.075],[0.075]
