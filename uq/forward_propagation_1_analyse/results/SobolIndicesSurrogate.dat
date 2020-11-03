@@ -1,0 +1,47 @@
+The following data was produced by SALib.analyze.sobol.analyze (rounded to 3 digits) 
+
+If the data is a vector: 
+Element 1 corresponds to the parameter: number_of_agents_mean
+Element 2 corresponds to the parameter: Traffic
+Element 3 corresponds to the parameter: Power,
+If the data is a matrix, interaction between the elements are described. 
+In this case, use the reference from above. 
+
+
+S1 >>> [ 0.105  0.158 -0.017]
+
+S1_conf >>> [0.18  0.261 0.049]
+
+ST >>> [1.19  0.779 0.185]
+
+ST_conf >>> [0.999 0.199 0.162]
+
+S2 >>> [[   nan  0.414  0.286]
+ [   nan    nan -0.08 ]
+ [   nan    nan    nan]]
+
+S2_conf >>> [[  nan 0.564 0.237]
+ [  nan   nan 0.233]
+ [  nan   nan   nan]]
+
+CoD >>> 0.069
+
+95-Confidence Intervals of S1, S2 and ST 
+LB: Lower Bound, UB: Upper bound
+
+S1CI95LB >>> [-0.075 -0.103 -0.066]
+
+S1CI95UB >>> [0.284 0.42  0.031]
+
+S2CI95LB >>> [[   nan -0.15   0.049]
+ [   nan    nan -0.313]
+ [   nan    nan    nan]]
+
+S2CI95UB >>> [[  nan 0.978 0.524]
+ [  nan   nan 0.153]
+ [  nan   nan   nan]]
+
+STCI95LB >>> [0.191 0.58  0.023]
+
+STCI95UB >>> [2.189 0.978 0.346]
+

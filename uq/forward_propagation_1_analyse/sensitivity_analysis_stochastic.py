@@ -35,7 +35,7 @@ def kriging(
         parameter_values[ints, 1],
         parameter_values[ints, 2],
         dissemination_time_log,
-        nlags=20,
+        nlags=10,
         enable_plotting=False,
         variogram_model="exponential",
         exact_values=exact_vals,
@@ -83,78 +83,66 @@ def use_sub_sets(number_samples, number_sets, train_size=0.3):
 
 if __name__ == "__main__":
 
-    plot_ = False
-    normalize = False
     models = 100
 
-    results = os.path.join(os.getcwd(), "output_df")
+    results = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_1/output_df")
     parameter, qoi = read_data(results, enable_plotting=False)
 
-    # sobol indices for real system
-    for num_resamples in [models]:
-        Si = sobolanalysis(qoi.to_numpy())
-        write_sobol_indices_to_file(Si, filename="SobolIndicesRealSystem.dat")
-
-    # one surrogate for all data -> bad!
+    # sobol indices for surrogate system
     qoi_surr = kriging(
-        parameter, qoi, ints=numpy.arange(2000), exact_vals=False, enable_plotting=False
+        parameter, qoi, ints=numpy.arange(2000), exact_vals=False, enable_plotting=True
     )
     Si = sobolanalysis(qoi_surr)
-    r2_pred = r2_score(y_true=qoi, y_pred=qoi_surr)
-    Si["CoD"] = r2_pred
-    write_sobol_indices_to_file(Si, filename="SobolIndicesSurrogate.dat")
+    Si["CoD"] = r2_score(y_true=qoi, y_pred=qoi_surr)
+    write_sobol_indices_to_file(Si, filename="results/SobolIndicesSurrogate.dat")
 
     # use multiple models
     train_percentage = [0.25, 0.375, 0.5]
-    for exact in [False]:
+    exact = False
 
-        for train_size in train_percentage:
+    for train_size in train_percentage:
 
-            ints = use_sub_sets(
-                len(parameter), number_sets=models, train_size=train_size
-            )
-            regression_coef, S1_dist, S2_dist, ST_dist, = list(), list(), list(), list()
+        ints = use_sub_sets(
+            len(parameter), number_sets=models, train_size=train_size
+        )
+        regression_coef, S1_dist, S2_dist, ST_dist, = list(), list(), list(), list()
 
-            for ii in range(ints.shape[-1]):
-                print(f"compute model {ii+1}")
+        for ii in range(ints.shape[-1]):
+            print(f"compute model {ii+1}")
 
-                qoi2 = kriging(
-                    parameter, qoi, ints[:, ii], exact_vals=exact, enable_plotting=False
-                )
-
-                r2_fit = r2_score(y_true=qoi[ints[:, ii]], y_pred=qoi2[ints[:, ii]])
-                r2_pred = r2_score(y_true=qoi, y_pred=qoi2)
-                Si2 = sobolanalysis(qoi2)
-
-                regression_coef.append(r2_pred)
-                S1_dist.append(Si2["S1"])
-                S2_dist.append(Si2["S2"])
-                ST_dist.append(Si2["ST"])
-
-            regression_coef = numpy.array(regression_coef)
-            S1_dist = numpy.array(S1_dist)
-            S2_dist = numpy.array(S2_dist)
-            ST_dist = numpy.array(ST_dist)
-
-            Si_surrogate = create_Si_dict(D=3, calc_second_order=True)
-
-            Z = norm.ppf(0.5 + 0.95 / 2)
-            Si_surrogate["S1"] = S1_dist.mean(axis=0)
-            Si_surrogate["S1_conf"] = Z * S1_dist.std(ddof=1, axis=0)
-
-            Si_surrogate["S2"] = S2_dist.mean(axis=0)
-            Si_surrogate["S2_conf"] = Z * S2_dist.std(ddof=1, axis=0)
-
-            Si_surrogate["ST"] = ST_dist.mean(axis=0)
-            Si_surrogate["ST_conf"] = Z * ST_dist.std(ddof=1, axis=0)
-
-            Si_surrogate["CoD"] = regression_coef.mean()
-            Si_surrogate["CoD_conf"] = Z * regression_coef.std(ddof=1)
-
-            print(
-                f"Use exact values = {exact}, Percentage of exact data fitted: {train_size:4.3f}, Cod: {Si_surrogate['CoD']} with a Confidence Interval of {Si_surrogate['CoD_conf']:4.3f}"
+            qoi2 = kriging(
+                parameter, qoi, ints[:, ii], exact_vals=exact, enable_plotting=False
             )
 
-            write_sobol_indices_to_file(
-                Si_surrogate, f"IndicesSurrogates_{exact}_{train_size}.dat"
-            )
+            r2_fit = r2_score(y_true=qoi.to_numpy()[ints[:, ii]].ravel(), y_pred=qoi2[ints[:, ii]])
+            r2_pred = r2_score(y_true=qoi.to_numpy().ravel(), y_pred=qoi2)
+            Si2 = sobolanalysis(qoi2)
+
+            regression_coef.append(r2_pred)
+            S1_dist.append(Si2["S1"])
+            S2_dist.append(Si2["S2"])
+            ST_dist.append(Si2["ST"])
+
+        regression_coef = numpy.array(regression_coef)
+        S1_dist = numpy.array(S1_dist)
+        S2_dist = numpy.array(S2_dist)
+        ST_dist = numpy.array(ST_dist)
+
+        Si_surrogate = create_Si_dict(D=3, calc_second_order=True)
+
+        Z = norm.ppf(0.5 + 0.95 / 2)
+        Si_surrogate["S1"] = S1_dist.mean(axis=0)
+        Si_surrogate["S1_conf"] = Z * S1_dist.std(ddof=1, axis=0)
+
+        Si_surrogate["S2"] = S2_dist.mean(axis=0)
+        Si_surrogate["S2_conf"] = Z * S2_dist.std(ddof=1, axis=0)
+
+        Si_surrogate["ST"] = ST_dist.mean(axis=0)
+        Si_surrogate["ST_conf"] = Z * ST_dist.std(ddof=1, axis=0)
+
+        Si_surrogate["CoD"] = regression_coef.mean()
+        Si_surrogate["CoD_conf"] = Z * regression_coef.std(ddof=1)
+
+        write_sobol_indices_to_file(
+            Si_surrogate, f"results/IndicesSurrogates_{exact}_{train_size}.dat"
+        )
