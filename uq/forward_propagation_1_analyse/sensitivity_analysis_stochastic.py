@@ -81,8 +81,6 @@ def use_sub_sets(number_samples, number_sets, train_size=0.3):
     return sets
 
 
-
-
 if __name__ == "__main__":
 
     plot_ = False
@@ -94,18 +92,17 @@ if __name__ == "__main__":
 
     # sobol indices for real system
     for num_resamples in [models]:
-        Si = sobolanalysis(qoi.to_numpy(), num_resamples=num_resamples)
+        Si = sobolanalysis(qoi.to_numpy())
         write_sobol_indices_to_file(Si, filename="SobolIndicesRealSystem.dat")
 
     # one surrogate for all data -> bad!
     qoi_surr = kriging(
         parameter, qoi, ints=numpy.arange(2000), exact_vals=False, enable_plotting=False
     )
-    for num_resamples in [models]:
-        Si = sobolanalysis(qoi_surr, num_resamples=num_resamples)
-        r2_pred = r2_score(y_true=qoi, y_pred=qoi_surr)
-        Si["CoD"] = r2_pred
-        write_sobol_indices_to_file(Si, filename="SobolIndicesSurrogate.dat")
+    Si = sobolanalysis(qoi_surr)
+    r2_pred = r2_score(y_true=qoi, y_pred=qoi_surr)
+    Si["CoD"] = r2_pred
+    write_sobol_indices_to_file(Si, filename="SobolIndicesSurrogate.dat")
 
     # use multiple models
     train_percentage = [0.25, 0.375, 0.5]
@@ -127,7 +124,7 @@ if __name__ == "__main__":
 
                 r2_fit = r2_score(y_true=qoi[ints[:, ii]], y_pred=qoi2[ints[:, ii]])
                 r2_pred = r2_score(y_true=qoi, y_pred=qoi2)
-                Si2 = sobolanalysis(qoi2, num_resamples=num_resamples)
+                Si2 = sobolanalysis(qoi2)
 
                 regression_coef.append(r2_pred)
                 S1_dist.append(Si2["S1"])

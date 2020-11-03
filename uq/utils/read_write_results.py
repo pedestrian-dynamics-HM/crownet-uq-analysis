@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+
+
+
 def write_sobol_indices_to_file(Si1, filename):
 
     with open(filename, "w") as f:
@@ -79,35 +82,22 @@ def read_data(summary, enable_plotting=False):
         except:
             pass
 
-    res = pd.read_csv(os.path.join(summary, "poisson_parameter.csv"), index_col=[0, 1])
-    res = res[["PoissonParameter"]]
-    res = res.sort_index()
 
-    res2 = pd.read_csv(os.path.join(summary, "time_95_informed.csv"), index_col=[0, 1])
-    res2 = res2[["timeToInform95PercentAgents"]]
-    res2 = res2.sort_index()
-    m_val = m_val = (
-        res2.drop(index=[1424, 1426, 1427, 1428]).mean().values[0]
-    )  # remove effect of failed simulations
-    res2[res2["timeToInform95PercentAgents"] == 0] = m_val
-    qoi = pd.concat([res, res2], axis=1)
 
-    ############
-    # plot data
+    dissemination_time = pd.read_csv(os.path.join(summary, "time_95_informed.csv"), index_col=[0, 1])
+    dissemination_time = dissemination_time[["timeToInform95PercentAgents"]]
+    dissemination_time = dissemination_time.sort_index()
 
-    tikz_table = pd.concat([parameter, res2], axis=1)
-    tikz_table.columns = ["numberOfAgents", "Power", "Traffic", "timeToInform"]
-    tikz_table.to_csv("DataTikz.dat", sep=" ")
+
 
     if enable_plotting:
         p1 = parameter["number_of_agents_mean"].values
         p2 = parameter["**wlan[*].radio.transmitter.power"].values
         p3 = parameter["*.hostMobile[*].app[1].messageLength"].values
 
-        plt.hist(res2.to_numpy(), bins=50, density=True, alpha=0.5)
+        plt.hist(dissemination_time.to_numpy(), bins=50, density=True, alpha=0.5)
         plt.xlabel("Time [s] to inform 95% of agents")
         plt.ylabel("Probability density function")
-        plt.legend(labels=["Before transformation", "After transformation"])
         plt.show(block=False)
 
         fig = plt.figure()
@@ -122,13 +112,13 @@ def read_data(summary, enable_plotting=False):
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
 
-        ax.scatter(p1, p2, p3, c=res2.values)
+        ax.scatter(p1, p2, p3, c=dissemination_time.values)
         plt.show(block=False)
 
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
 
-        ax.scatter(p1, p2, res2.values, c=p3)
+        ax.scatter(p1, p2, dissemination_time.values, c=p3)
         plt.show(block=False)
 
-    return parameter, qoi["timeToInform95PercentAgents"]
+    return parameter, dissemination_time
