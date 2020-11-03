@@ -8,6 +8,7 @@ from SALib.sample import saltelli
 import scipy.stats as sp
 
 # This is just to make sure that the systems path is set up correctly, to have correct imports, it can be ignored:
+from utils.imports import problem_definition, get_seed
 
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath(".."))
@@ -26,7 +27,7 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
 
     # 2) *.hostMobile[*].app[1].messageLength
     ## is used to vary the network load, traffic load = messageLength*20ms
-    ## lower bound: 10B, upper bound: 5000B (video streaming in medium quality)
+    ## lower bound: 50B, upper bound: 5000B (video streaming in medium quality)
     ## distribution: uniform
 
     # 3) **wlan[*].radio.transmitter.power
@@ -36,18 +37,10 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
 
     # STEP 1: Create samples with Sobol sequence using SALib
 
-    parameter = {
-        "num_vars": 3,
-        "names": [
-            "number_of_agents_mean",
-            "*.hostMobile[*].app[1].messageLength",
-            "**wlan[*].radio.transmitter.power",
-        ],
-        "bounds": [[0, 1], [10, 5000], [0.5, 2.0]],  # uniform distribution assumed!
-    }
+    parameter = problem_definition()
 
     param_values = saltelli.sample(
-        parameter, int(nr_samples/8), calc_second_order=True, seed=seed
+        parameter, int(nr_samples/8), calc_second_order=True, seed=get_seed()
     )
     # Step 1.1: Transform random variable 1)
     low = 10
@@ -173,7 +166,7 @@ if __name__ == "__main__":
     simulations = setup.get_simulations()
     simulations.to_csv(os.path.join(summary, "simulations.csv"))
 
-    par_var, data = setup.run(15)
+    par_var, data = setup.run(10)
 
     par_var.to_csv(os.path.join(summary, "metainfo.csv"))
 

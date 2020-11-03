@@ -42,7 +42,8 @@ $VENV/bin/easy_install $VENV/lib/python3.6/site-packages/roveranalyzer-1.2-py3.6
 popd
 $VENV/bin/pip3 install --upgrade setuptools
 $VENV/bin/pip3 install --upgrade pip
-$VENV/bin/pip3 install SALib --no-cache-dir
+$VENV/bin/pip3 install SALib==1.3.11 --no-cache-dir
+$VENV/bin/pip3 install pykrige==1.5.1 --no-cache-dir
 
 
 
