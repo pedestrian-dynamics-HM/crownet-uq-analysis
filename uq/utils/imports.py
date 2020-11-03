@@ -1,3 +1,4 @@
+import os
 
 
 def problem_definition():
@@ -17,3 +18,24 @@ def calc_second_order():
 
 def get_seed():
 	return 111
+
+def path2ini():
+	## Define the simulation to be used
+	# A rover simulation is defined by an "omnetpp.ini" file and its corresponding directory.
+	# Use following *.ini file:
+	path2ini = os.path.join(
+		os.environ["ROVER_MAIN"],
+		"rover/simulations/simple_detoure_suqc_traffic/omnetpp.ini",
+	)
+	return path2ini
+
+def qoi():
+	## Define the quantities of interest (simulation output variables)
+	# Make sure that corresponding post processing methods exist in the run_script2.py file
+	qoi = [
+		"degree_informed_extract.txt",
+		"poisson_parameter.txt",
+		"time_95_informed.txt",
+	]
+	return qoi
+

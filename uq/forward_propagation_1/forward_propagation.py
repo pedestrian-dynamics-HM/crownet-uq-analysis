@@ -8,7 +8,8 @@ from SALib.sample import saltelli
 import scipy.stats as sp
 
 # This is just to make sure that the systems path is set up correctly, to have correct imports, it can be ignored:
-from utils.imports import problem_definition, get_seed
+from utils.imports import problem_definition, get_seed, calc_second_order
+from utils.imports import path2ini, qoi
 
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath(".."))
@@ -16,7 +17,7 @@ sys.path.append(os.path.abspath(".."))
 run_local = True
 ###############################################################################################################
 
-def get_sampling(nr_samples=250, seed=111, is_test=False):
+def get_sampling_df(nr_samples=2000):
 
     # the following 3 parameters are varied
 
@@ -40,7 +41,7 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
     parameter = problem_definition()
 
     param_values = saltelli.sample(
-        parameter, int(nr_samples/8), calc_second_order=True, seed=get_seed()
+        parameter, int(nr_samples/8), calc_second_order=calc_second_order(), seed=get_seed()
     )
     # Step 1.1: Transform random variable 1)
     low = 10
@@ -51,16 +52,12 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
     )
 
     # Step 2: Make samples readable for suqc
-
     param_values = pd.DataFrame(
         param_values, columns=["number_of_agents_mean", "p1", "p2"]
     )
     param_values["number_of_agents_mean"] = round(
         param_values["number_of_agents_mean"], 0
     )
-
-    if is_test:
-        param_values["number_of_agents_mean"] = 30
 
     # Step 2.1: Distribute number of agents at four sources and determine number of agents/(1 second)
     for x in [1, 2, 5, 6]:
@@ -76,6 +73,15 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
         lambda row: f"{round(row.p2,2)}mW", axis=1
     )
     param_values = param_values.drop(columns=["p1", "p2"])
+    return param_values
+
+def get_sampling(nr_samples=2000, is_test=False):
+
+    param_values = get_sampling_df(nr_samples=nr_samples)
+
+    if is_test:
+        param_values["number_of_agents_mean"] = 30
+        param_values = param_values.iloc[np.linspace(0,4),:]
 
     par_var = list()
 
@@ -106,38 +112,19 @@ def get_sampling(nr_samples=250, seed=111, is_test=False):
 if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
-    seed = 111
-    par_var = get_sampling(nr_samples=2000, seed=seed, is_test=False)
+    par_var = get_sampling()
 
     output_folder = os.path.join(os.getcwd(), "output")
-
-    ## Define the simulation to be used
-    # A rover simulation is defined by an "omnetpp.ini" file and its corresponding directory.
-    # Use following *.ini file:
-
-    path2ini = os.path.join(
-        os.environ["ROVER_MAIN"],
-        "rover/simulations/simple_detoure_suqc_traffic/omnetpp.ini",
-    )
-
-    ## Define the quantities of interest (simulation output variables)
-    # Make sure that corresponding post processing methods exist in the run_script2.py file
-
-    qoi = [
-        "degree_informed_extract.txt",
-        "poisson_parameter.txt",
-        "time_95_informed.txt",
-    ]
 
     model = CoupledConsoleWrapper(
         model="Coupled", vadere_tag="200527-1424", omnetpp_tag="200221-1642"
     )
 
     setup = CoupledDictVariation(
-        ini_path=path2ini,
+        ini_path=path2ini(),
         config="final",
         parameter_dict_list=par_var,
-        qoi=qoi,
+        qoi=qoi(),
         model=model,
         scenario_runs=1,
         post_changes=PostScenarioChangesBase(apply_default=True),
