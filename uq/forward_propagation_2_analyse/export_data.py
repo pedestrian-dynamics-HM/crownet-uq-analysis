@@ -3,22 +3,40 @@ import os
 from utils.read_write_results import read_data, write_sobol_indices_to_file
 import pandas as pd
 
-
 if __name__ == "__main__":
 
-    results = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_1/output_df")
-    parameter, dissemination_time = read_data(results, enable_plotting=True)
+    results_dir = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_2" )
 
-    # get statistics
-    stats = dissemination_time.describe()
-    mode = dissemination_time.mode()
-    mode = mode.rename(index={0: 'mode'})
+    tikz_table = pd.DataFrame()
 
-    stats = pd.concat([stats, mode])
-    stats = stats.round(2)
-    stats.to_csv("results/DisseminationTimeStatistics.dat", sep = " ", header=False)
+    for obs in [False, True]:
+        for traf in [False, True]:
 
-    print("Finished.")
+            results = os.path.join(
+                results_dir, f"output_obstacle_{obs}_traf_{traf}"
+            )
+
+            parameter, dissemination_time = read_data(results, enable_plotting=True)
+
+            tikz_table = pd.concat([tikz_table, dissemination_time], axis=1)
+
+    tikz_table = pd.concat([parameter, tikz_table], axis=1)
+
+    tikz_table.columns = [
+        "numberOfAgents",
+        "Power",
+        "Traffic",
+        "timeDefault",
+        "timeNoTraffic",
+        "timeNothing",
+        "timeTraffic",
+    ]
+
+    tikz_table.to_csv("results/DataTikzSubResults.dat", sep=" ")
+
+
+
+
 
 
 

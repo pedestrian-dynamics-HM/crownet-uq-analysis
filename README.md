@@ -38,6 +38,7 @@ Activate the virtual environment
 ```
 source .venv/bin/activate
 ```
+
 Start the forward propagation
 ```
 python3 forward_propagation_1/forward_propagation.py
