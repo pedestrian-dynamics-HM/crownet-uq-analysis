@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
-
-
 def write_sobol_indices_to_file(Si1, filename):
 
     with open(filename, "w") as f:
@@ -55,21 +52,66 @@ def write_regr_coefs_to_file(regression_coef, filename):
         f.write(str(np.round(regression_coef, 3)) + "\n")
 
 
+def get_succesful_simulation_runs(parameter, degree):
+    # check the results
+
+    # check return code
+    len_demanded = len(parameter)
+    parameter = parameter[parameter["('MetaInfo', 'return_code')"] == 0]
+    indices_1 = parameter.index.get_level_values(0)
+
+    # check data
+    degree = degree[~degree.index.duplicated(keep="last")]
+    degree = degree[degree.iloc[:, 0] >= 0.95]
+    indices_2 = degree.index.get_level_values(0)
+
+    indices_successful_sim_runs = indices_1.intersection(indices_2)
+    l = len(indices_successful_sim_runs)
+
+    # provide indices of succesful simulation runs
+    # make sure that the number is a multiple of 8 as required by SALib settings
+    factor = 8
+    index_max = int(l / factor) * factor
+    indices_successful_sim_runs = indices_successful_sim_runs[:index_max]
+    indices_failed_sim_runs = indices_1.difference(
+        indices_successful_sim_runs
+    ).to_list()
+
+    if len_demanded != l:
+        print(
+            f"WARNING: \t {len_demanded} samples were demanded.  {len_demanded-l} simulation runs failed."
+        )
+    if (l % factor) != 0:
+        print(
+            f"\t\t\t Number of remaining samples is not a multiple of 8. Use sample 0...{index_max} of the successful simulation runs."
+        )
+
+    if len(indices_failed_sim_runs) > 0:
+        print(f"\t\t\t Removed simulation runs {indices_failed_sim_runs} from the database.")
+        print(
+            f"\t\t\t {len_demanded - len(indices_failed_sim_runs)} simulation runs remaining."
+        )
+
+    return indices_successful_sim_runs.to_numpy()
+
+
 def read_data(summary, enable_plotting=False):
 
-    # Step 1: read and plot parameter
-
+    # Check data
     parameter = pd.read_csv(
         os.path.join(summary, "metainfo.csv"), index_col=["id", "run_id"]
     )
-    len_demanded = len(parameter)
-    parameter = parameter[parameter["('MetaInfo', 'return_code')"] == 0]
-    if len_demanded != len(parameter):
-        print(
-            f"WARNING: {len_demanded} samples were demanded. Resuls are available for {len(parameter)} samples."
-        )
 
-    # extract data:
+    degree = pd.read_csv(
+        os.path.join(summary, "degree_informed_extract.csv"), index_col=[0, 1]
+    )
+    degree = degree[["percentageInformed-PID12"]]
+
+    # check results and remove failed simulation runs from database
+    succeeded = get_succesful_simulation_runs(parameter, degree)
+
+
+    # extract data, remove units
     parameter = parameter.iloc[:, 0:3]
     parameter.columns = [c_name.split("'")[5] for c_name in parameter.columns.to_list()]
     print("Extracted parameters:")
@@ -82,13 +124,15 @@ def read_data(summary, enable_plotting=False):
         except:
             pass
 
-
-
-    dissemination_time = pd.read_csv(os.path.join(summary, "time_95_informed.csv"), index_col=[0, 1])
+    dissemination_time = pd.read_csv(
+        os.path.join(summary, "time_95_informed.csv"), index_col=[0, 1]
+    )
     dissemination_time = dissemination_time[["timeToInform95PercentAgents"]]
     dissemination_time = dissemination_time.sort_index()
 
-
+    # remove failed simulation runs
+    dissemination_time = dissemination_time.iloc[succeeded, :]
+    parameter = parameter.iloc[succeeded, :]
 
     if enable_plotting:
         p1 = parameter["number_of_agents_mean"].values

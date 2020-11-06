@@ -1,6 +1,6 @@
 import os
 
-from utils.read_write_results import read_data, write_sobol_indices_to_file
+from utils.read_write_results import read_data
 import pandas as pd
 
 
