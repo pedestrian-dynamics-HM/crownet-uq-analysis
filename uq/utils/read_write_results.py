@@ -70,32 +70,22 @@ def get_succesful_simulation_runs(parameter, degree):
 
     # provide indices of succesful simulation runs
     # make sure that the number is a multiple of 8 as required by SALib settings
-    factor = 8
-    index_max = int(l / factor) * factor
-    indices_successful_sim_runs = indices_successful_sim_runs[:index_max]
     indices_failed_sim_runs = indices_1.difference(
         indices_successful_sim_runs
-    ).to_list()
+    )
 
-    if len_demanded != l:
-        print(
-            f"WARNING: \t {len_demanded} samples were demanded.  {len_demanded-l} simulation runs failed."
-        )
-    if (l % factor) != 0:
-        print(
-            f"\t\t\t Number of remaining samples is not a multiple of 8. Use sample 0...{index_max} of the successful simulation runs."
-        )
+
 
     if len(indices_failed_sim_runs) > 0:
-        print(f"\t\t\t Removed simulation runs {indices_failed_sim_runs} from the database.")
         print(
-            f"\t\t\t {len_demanded - len(indices_failed_sim_runs)} simulation runs remaining."
+            f"WARNING: \t {len_demanded} samples were demanded.  {len(indices_failed_sim_runs)} simulation runs failed."
         )
+        print(f"\t\t\t Failed: {indices_failed_sim_runs.to_list()}.")
 
-    return indices_successful_sim_runs.to_numpy()
+    return indices_successful_sim_runs.to_numpy(), indices_failed_sim_runs.to_numpy()
 
 
-def read_data(summary, enable_plotting=False):
+def read_data(summary, enable_plotting=False, remove_failed = True):
 
     # Check data
     parameter = pd.read_csv(
@@ -108,7 +98,7 @@ def read_data(summary, enable_plotting=False):
     degree = degree[["percentageInformed-PID12"]]
 
     # check results and remove failed simulation runs from database
-    succeeded = get_succesful_simulation_runs(parameter, degree)
+    succeeded, failed = get_succesful_simulation_runs(parameter, degree)
 
 
     # extract data, remove units
@@ -131,8 +121,19 @@ def read_data(summary, enable_plotting=False):
     dissemination_time = dissemination_time.sort_index()
 
     # remove failed simulation runs
-    dissemination_time = dissemination_time.iloc[succeeded, :]
-    parameter = parameter.iloc[succeeded, :]
+
+    dissemination_time_r = dissemination_time.iloc[succeeded, :]
+    parameter_r = parameter.iloc[succeeded, :]
+
+    if remove_failed == True:
+        dissemination_time = dissemination_time_r
+        parameter = parameter_r
+        print(f"Removed failed simulations {list(failed)} from database.")
+    else:
+        average_val = dissemination_time_r.mean().to_numpy().ravel()[0]
+        dissemination_time.iloc[failed, :] = average_val
+        print(f"WARNING Assigned average dissemination time value of succesful simulatioon runs ({average_val:4.2f}) to failed simulations runs {list(failed)}.")
+
 
     if enable_plotting:
         p1 = parameter["number_of_agents_mean"].values

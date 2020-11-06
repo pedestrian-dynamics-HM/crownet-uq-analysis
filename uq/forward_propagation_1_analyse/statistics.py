@@ -7,7 +7,7 @@ import pandas as pd
 if __name__ == "__main__":
 
     results = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_1/output_df")
-    parameter, dissemination_time = read_data(results, enable_plotting=True)
+    parameter, dissemination_time = read_data(results, enable_plotting=True, remove_failed = True )
 
     # save results to files that can be read by latex
     tikz_table = pd.concat([parameter, dissemination_time], axis=1)
