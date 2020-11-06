@@ -7,12 +7,13 @@ from suqc import *
 from SALib.sample import saltelli
 import scipy.stats as sp
 
+sys.path.append(os.path.abspath("."))
+sys.path.append(os.path.abspath(".."))
+
 # This is just to make sure that the systems path is set up correctly, to have correct imports, it can be ignored:
 from utils.imports import problem_definition, get_seed, calc_second_order
 from utils.imports import path2ini, qoi
 
-sys.path.append(os.path.abspath("."))
-sys.path.append(os.path.abspath(".."))
 
 run_local = True
 ###############################################################################################################
@@ -114,7 +115,8 @@ if __name__ == "__main__":
     ## Define which parameters are varied and store it in par_var
     par_var = get_sampling()
 
-    output_folder = os.path.join(os.getcwd(), "output")
+    folder = os.path.abspath("../external_data/")
+    output_folder = os.path.join(folder, "output")
 
     model = CoupledConsoleWrapper(
         model="Coupled", vadere_tag="200527-1424", omnetpp_tag="200221-1642"
@@ -128,7 +130,7 @@ if __name__ == "__main__":
         model=model,
         scenario_runs=1,
         post_changes=PostScenarioChangesBase(apply_default=True),
-        output_path=os.getcwd(),
+        output_path=folder,
         output_folder=output_folder,
         remove_output=True,
         seed_config={"vadere": "fixed", "omnet": "fixed"},
@@ -141,7 +143,7 @@ if __name__ == "__main__":
         )
 
     # Save results
-    summary = output_folder + "_df"
+    summary = os.path.join(os.getcwd(),"output_df")
     if os.path.exists(summary):
         shutil.rmtree(summary)
 
