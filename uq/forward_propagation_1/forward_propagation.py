@@ -155,7 +155,7 @@ if __name__ == "__main__":
     simulations = setup.get_simulations()
     simulations.to_csv(os.path.join(summary, "simulations.csv"))
 
-    par_var, data = setup.run(10)
+    par_var, data = setup.run(25)
 
     par_var.to_csv(os.path.join(summary, "metainfo.csv"))
 
