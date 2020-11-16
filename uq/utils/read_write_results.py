@@ -74,13 +74,13 @@ def get_succesful_simulation_runs(parameter, degree):
         indices_successful_sim_runs
     )
 
-
-
     if len(indices_failed_sim_runs) > 0:
         print(
             f"WARNING: \t {len_demanded} samples were demanded.  {len(indices_failed_sim_runs)} simulation runs failed."
         )
         print(f"\t\t\t Failed: {indices_failed_sim_runs.to_list()}.")
+    else:
+        print("All simulation runs succeeded.")
 
     return indices_successful_sim_runs.to_numpy(), indices_failed_sim_runs.to_numpy()
 
@@ -151,7 +151,7 @@ def read_data(summary, enable_plotting=False, remove_failed = True):
         plt.show(block=False)
 
         for p in [p1, p2, p3]:
-            plt.hist(p, bins=6)
+            plt.scatter(p,dissemination_time.to_numpy())
             plt.show(block=False)
 
         fig = plt.figure()
