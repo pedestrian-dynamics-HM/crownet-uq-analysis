@@ -4,13 +4,12 @@
 import sys
 from suqc import *
 
-from utils.read_write_results import read_data
-
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath(".."))
 
 from forward_propagation_1.forward_propagation import get_sampling_df
 from utils.imports import path2ini, qoi
+from utils.read_write_results import read_data
 ###############################################################################################################
 
 
@@ -46,11 +45,15 @@ def get_sampling(
         d = {
             "dummy": {"number_of_agents_mean": r[0]},
             "vadere": {
-                "sources.[id==1].distributionParameters": r[1],
-                "sources.[id==2].distributionParameters": r[2],
-                "sources.[id==5].distributionParameters": r[3],
-                "sources.[id==6].distributionParameters": r[4],
-                "spawnAtRandomPositions" : "false",
+                "sources.[id==1].distributionParameters": r[1]*0.99,
+                "sources.[id==2].distributionParameters": r[2]*0.99,
+                "sources.[id==5].distributionParameters": r[3]*0.99,
+                "sources.[id==6].distributionParameters": r[4]*0.99,
+                "sources.[id==1].spawnAtRandomPositions": True,
+                "sources.[id==2].spawnAtRandomPositions": True,
+                "sources.[id==5].spawnAtRandomPositions": True,
+                "sources.[id==6].spawnAtRandomPositions": True,
+                "attributesSimulation.fixedSeed": 65722447231342458,
             },
             "omnet": dd,
         }
@@ -68,11 +71,6 @@ def get_sampling(
 if __name__ == "__main__":
 
     print(os.environ["ROVER_MAIN"])
-
-    results = os.path.join(
-        os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
-    )
-    __, dissemination_time = read_data(results, enable_plotting=True)
 
     obs = True
     traf = True
@@ -123,7 +121,7 @@ if __name__ == "__main__":
     simulations = setup.get_simulations()
     simulations.to_csv(os.path.join(summary, "simulations.csv"))
 
-    par_var, data = setup.run(4)
+    par_var, data = setup.run(1)
 
     par_var.to_csv(os.path.join(summary, "metainfo.csv"))
 

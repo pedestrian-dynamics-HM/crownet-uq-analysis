@@ -73,6 +73,7 @@ def get_sampling_df(nr_samples=2000):
     param_values["**wlan[*].radio.transmitter.power"] = param_values.apply(
         lambda row: f"{round(row.p2,2)}mW", axis=1
     )
+
     param_values = param_values.drop(columns=["p1", "p2"])
     return param_values
 
@@ -96,6 +97,7 @@ def get_sampling(nr_samples=2000, is_test=False):
                 "sources.[id==2].distributionParameters": r[2],
                 "sources.[id==5].distributionParameters": r[3],
                 "sources.[id==6].distributionParameters": r[4],
+                "attributesSimulation.fixedSeed": 65722447231342458,
             },
             "omnet": {
                 "*.hostMobile[*].app[1].messageLength": r[5],
