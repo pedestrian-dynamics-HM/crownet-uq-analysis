@@ -50,6 +50,7 @@ def get_sampling(
                 "sources.[id==2].distributionParameters": r[2],
                 "sources.[id==5].distributionParameters": r[3],
                 "sources.[id==6].distributionParameters": r[4],
+                "spawnAtRandomPositions" : "false",
             },
             "omnet": dd,
         }
