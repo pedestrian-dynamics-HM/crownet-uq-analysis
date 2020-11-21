@@ -102,6 +102,7 @@ def get_sampling(nr_samples=2000, is_test=False):
             "omnet": {
                 "*.hostMobile[*].app[1].messageLength": r[5],
                 "**wlan[*].radio.transmitter.power": r[6],
+                "*.radioMedium.obstacleLoss.typename" = '"DielectricObstacleLoss"',
             },
         }
         par_var.append(d)
