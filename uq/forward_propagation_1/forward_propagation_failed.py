@@ -117,9 +117,9 @@ if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
     par_var = get_sampling()
-
+    par_var = [par_var[x] in [165,166,167,206,207,208,278,279,618,620,621,830,831,832,1153,1158,1159,1174,1387,1388,1527,1556,1557,1558,1559,1560,1898,1899,1900,1901,1902,1904,1905,1907,1908,1910,1911,1916,1917]]
     folder = os.path.abspath("../external_data/")
-    output_folder = os.path.join(folder, "output")
+    output_folder = os.path.join(folder, "output_failed")
 
     model = CoupledConsoleWrapper(
         model="Coupled", vadere_tag="200527-1424", omnetpp_tag="200221-1642"

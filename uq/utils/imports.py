@@ -9,7 +9,7 @@ def problem_definition():
 			"*.hostMobile[*].app[1].messageLength",
 			"**wlan[*].radio.transmitter.power",
 		],
-		"bounds": [[0, 1], [0, 5000], [0.5, 2.0]],  # uniform distribution assumed!
+		"bounds": [[0, 1], [0, 4000], [0.5, 2.0]],  # uniform distribution assumed!
 	}
 	return problem
 
