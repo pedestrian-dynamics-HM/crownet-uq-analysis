@@ -146,7 +146,7 @@ if __name__ == "__main__":
         )
 
     # Save results
-    summary = os.path.join(os.getcwd(),"output_df")
+    summary = os.path.join(os.getcwd(),"output_df_failed_reindex")
     if os.path.exists(summary):
         shutil.rmtree(summary)
 
