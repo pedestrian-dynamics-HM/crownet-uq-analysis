@@ -4,8 +4,6 @@
 import sys
 from suqc import *
 
-from utils.read_write_results import read_data
-
 sys.path.append(os.path.abspath("."))
 sys.path.append(os.path.abspath(".."))
 
@@ -13,6 +11,7 @@ from forward_propagation_1.forward_propagation import get_sampling_df
 from utils.imports import path2ini, qoi
 ###############################################################################################################
 
+from utils.read_write_results import read_data
 
 def get_sampling(
     nr_samples=250, seed=111, is_test=False, obstacle_model=True, traffic=True
