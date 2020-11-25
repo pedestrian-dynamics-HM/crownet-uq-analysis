@@ -21,50 +21,29 @@ if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
     par_var = get_sampling()
-    failed_runs = [
-        165,
-        166,
-        167,
-        206,
-        207,
-        208,
-        278,
-        279,
-        618,
-        620,
-        621,
-        830,
-        831,
-        832,
-        1153,
-        1158,
-        1159,
-        1174,
-        1387,
-        1388,
-        1527,
-        1556,
-        1557,
-        1558,
-        1559,
-        1560,
-        1896,
-        1898,
-        1899,
-        1900,
-        1901,
-        1902,
-        1904,
-        1905,
-        1907,
-        1908,
-        1909,
-        1910,
-        1911,
-        1916,
-        1917,
-    ]
+    failed_runs = [1008,1010,1011,1012]
     par_var = [par_var[x] for x in failed_runs]
+
+    print(par_var)
+
+    for x in range(4):
+        print(x)
+        value = [1.34]
+        val = 4 * 100 * value[0]
+        par_var[x]["dummy"]['number_of_agents_mean'] = val
+        for source in [1,2,5,6]:
+            par_var[x]["vadere"][f"sources.[id=={source}].distributionParameters"] = value
+
+    # for x in range(4,8):
+    #     print(x)
+    #     value = [1.340]
+    #     val = 4 * 100 * value[0]
+    #     par_var[x]["dummy"]['number_of_agents_mean'] = val
+    #     for source in [1,2,5,6]:
+    #         par_var[x]["vadere"][f"sources.[id=={source}].distributionParameters"] = value
+
+    print(par_var)
+
     folder = os.path.abspath("../external_data/")
     output_folder = os.path.join(folder, "output_failed")
 
