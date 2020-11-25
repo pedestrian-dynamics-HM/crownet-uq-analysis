@@ -49,6 +49,7 @@ def get_sampling(
                 "sources.[id==2].distributionParameters": r[2],
                 "sources.[id==5].distributionParameters": r[3],
                 "sources.[id==6].distributionParameters": r[4],
+                "attributesSimulation.fixedSeed": 65722447231342458,
             },
             "omnet": dd,
         }
@@ -78,8 +79,8 @@ if __name__ == "__main__":
         .to_numpy()
     )
 
-    for obs in [ True, False]:
-        for traf in [ True, False]:
+    for obs in [False, True]:
+        for traf in [False, True]:
 
             par_var = get_sampling(
                 nr_samples=2000, is_test=False, obstacle_model=obs, traffic=traf
@@ -128,7 +129,7 @@ if __name__ == "__main__":
             simulations = setup.get_simulations()
             simulations.to_csv(os.path.join(summary, "simulations.csv"))
 
-            par_var, data = setup.run(20)
+            par_var, data = setup.run(15)
 
             par_var.to_csv(os.path.join(summary, "metainfo.csv"))
 

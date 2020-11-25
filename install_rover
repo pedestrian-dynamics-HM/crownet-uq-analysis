@@ -17,6 +17,7 @@ echo "#######################################"
 echo "#######################################"
 echo "Build vadere container"
 pushd "$HOME/repos/rover-main/docker/vadere"
+#TODO: build rover-main/docker/vadere/update_xxx
 
 
 
