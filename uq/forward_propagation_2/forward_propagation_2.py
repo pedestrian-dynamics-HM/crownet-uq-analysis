@@ -66,7 +66,7 @@ def get_sampling(
 
 if __name__ == "__main__":
 
-    print(os.environ["ROVER_MAIN"])
+    #print(os.environ["ROVER_MAIN"])
 
     results = os.path.join(
         os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
