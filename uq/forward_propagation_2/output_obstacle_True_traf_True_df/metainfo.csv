@@ -1,0 +1,24 @@
+id,run_id,"('Parameter', 'dummy', 'number_of_agents_mean')","('Parameter', 'omnet', '**wlan[*].radio.transmitter.power')","('Parameter', 'omnet', '*.hostMobile[*].app[1].messageLength')","('Parameter', 'omnet', '*.manager.host')","('Parameter', 'omnet', '*.manager.useVadereSeed')","('Parameter', 'omnet', '*.radioMedium.obstacleLoss.typename')","('Parameter', 'vadere', 'attributesSimulation.useFixedSeed')","('Parameter', 'vadere', 'sources.[id==1].distributionParameters')","('Parameter', 'vadere', 'sources.[id==2].distributionParameters')","('Parameter', 'vadere', 'sources.[id==5].distributionParameters')","('Parameter', 'vadere', 'sources.[id==6].distributionParameters')","('MetaInfo', 'required_wallclock_time')","('MetaInfo', 'return_code')"
+0,0,254.0,1.79mW,2011B,"""vadere_Sample__0_0""",true,"""IdealObstacleLoss""",True,[0.635],[0.635],[0.635],[0.635],686.0507295131683,0.0
+1,0,10.0,1.42mW,3011B,"""vadere_Sample__1_0""",true,"""IdealObstacleLoss""",True,[0.025],[0.025],[0.025],[0.025],196.94157099723816,0.0
+2,0,10.0,1.42mW,746B,"""vadere_Sample__2_0""",true,"""IdealObstacleLoss""",True,[0.025],[0.025],[0.025],[0.025],173.92057466506958,0.0
+3,0,10.0,1.16mW,3011B,"""vadere_Sample__3_0""",true,"""IdealObstacleLoss""",True,[0.025],[0.025],[0.025],[0.025],-1.0,-1.0
+4,0,10.0,1.16mW,746B,"""vadere_Sample__4_0""",true,"""IdealObstacleLoss""",True,[0.025],[0.025],[0.025],[0.025],180.39799165725708,0.0
+5,0,131.0,0.88mW,2880B,"""vadere_Sample__5_0""",true,"""IdealObstacleLoss""",True,[0.3275],[0.3275],[0.3275],[0.3275],883.862951040268,0.0
+6,0,122.0,1.8mW,3943B,"""vadere_Sample__6_0""",true,"""IdealObstacleLoss""",True,[0.305],[0.305],[0.305],[0.305],748.915450334549,0.0
+7,0,122.0,1.51mW,3943B,"""vadere_Sample__7_0""",true,"""IdealObstacleLoss""",True,[0.305],[0.305],[0.305],[0.305],430.86818385124207,0.0
+8,0,172.0,1.15mW,3693B,"""vadere_Sample__8_0""",true,"""IdealObstacleLoss""",True,[0.43],[0.43],[0.43],[0.43],299.8768093585968,0.0
+9,0,137.0,1.91mW,3384B,"""vadere_Sample__9_0""",true,"""IdealObstacleLoss""",True,[0.3425],[0.3425],[0.3425],[0.3425],288.6213767528534,0.0
+10,0,146.0,1.58mW,3474B,"""vadere_Sample__10_0""",true,"""IdealObstacleLoss""",True,[0.365],[0.365],[0.365],[0.365],454.95063757896423,0.0
+11,0,159.0,1.96mW,3833B,"""vadere_Sample__11_0""",true,"""IdealObstacleLoss""",True,[0.3975],[0.3975],[0.3975],[0.3975],-1.0,-1.0
+12,0,144.0,1.68mW,3900B,"""vadere_Sample__12_0""",true,"""IdealObstacleLoss""",True,[0.36],[0.36],[0.36],[0.36],462.8101394176483,0.0
+13,0,139.0,1.89mW,3708B,"""vadere_Sample__13_0""",true,"""IdealObstacleLoss""",True,[0.34750000000000003],[0.34750000000000003],[0.34750000000000003],[0.34750000000000003],819.3890070915222,0.0
+14,0,154.0,0.58mW,3771B,"""vadere_Sample__14_0""",true,"""IdealObstacleLoss""",True,[0.385],[0.385],[0.385],[0.385],581.4520015716553,0.0
+15,0,243.0,1.21mW,3712B,"""vadere_Sample__15_0""",true,"""IdealObstacleLoss""",True,[0.6075],[0.6075],[0.6075],[0.6075],2394.026030063629,0.0
+16,0,20.0,1.88mW,3244B,"""vadere_Sample__16_0""",true,"""IdealObstacleLoss""",True,[0.05],[0.05],[0.05],[0.05],173.79386568069458,0.0
+17,0,101.0,0.64mW,3052B,"""vadere_Sample__17_0""",true,"""IdealObstacleLoss""",True,[0.2525],[0.2525],[0.2525],[0.2525],525.3213274478912,0.0
+18,0,202.0,1.06mW,3177B,"""vadere_Sample__18_0""",true,"""IdealObstacleLoss""",True,[0.505],[0.505],[0.505],[0.505],464.60969972610474,0.0
+19,0,144.0,1.43mW,2619B,"""vadere_Sample__19_0""",true,"""IdealObstacleLoss""",True,[0.36],[0.36],[0.36],[0.36],552.9567995071411,0.0
+20,0,83.0,0.59mW,3869B,"""vadere_Sample__20_0""",true,"""IdealObstacleLoss""",True,[0.20750000000000002],[0.20750000000000002],[0.20750000000000002],[0.20750000000000002],1227.8146617412567,0.0
+21,0,57.0,1.06mW,3681B,"""vadere_Sample__21_0""",true,"""IdealObstacleLoss""",True,[0.14250000000000002],[0.14250000000000002],[0.14250000000000002],[0.14250000000000002],219.07918405532837,0.0
+22,0,57.0,1.88mW,3681B,"""vadere_Sample__22_0""",true,"""IdealObstacleLoss""",True,[0.14250000000000002],[0.14250000000000002],[0.14250000000000002],[0.14250000000000002],304.38129901885986,0.0

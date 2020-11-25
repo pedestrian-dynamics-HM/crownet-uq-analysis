@@ -1,0 +1,2 @@
+,basis_scenario,ini_path,base_path,env_name
+0,/home/christina/repos/rover-main/rover/simulations/simple_detoure_suqc_traffic/vadere/scenarios/simple_detour_100x177_miat1.25.scenario,/home/christina/repos/rover-main/rover/simulations/simple_detoure_suqc_traffic/omnetpp.ini,/home/christina/repos/mdpi-rover-2020/uq/forward_propagation_2,/home/christina/repos/mdpi-rover-2020/uq/forward_propagation_2/output_obstacle_True_traf_True
