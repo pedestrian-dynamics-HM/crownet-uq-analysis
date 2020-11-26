@@ -9,7 +9,7 @@ if __name__ == "__main__":
     results = os.path.join(
         os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
     )
-    __, dissemination_time = read_data(results, enable_plotting=False)
+    __, dissemination_time = read_data(results, enable_plotting=False, remove_failed=False)
 
     sim_runs_larger_30s = (
         dissemination_time[dissemination_time["timeToInform95PercentAgents"] > 30]
@@ -17,6 +17,7 @@ if __name__ == "__main__":
         .to_numpy()
     )
 
+    dissemination_time_ = dissemination_time.iloc[sim_runs_larger_30s,:]
 
     results_dir = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_2" )
 
@@ -34,6 +35,7 @@ if __name__ == "__main__":
             tikz_table = pd.concat([tikz_table, dissemination_time], axis=1)
 
     tikz_table = pd.concat([parameter, tikz_table], axis=1)
+    tikz_table.index = dissemination_time_.index
 
     tikz_table.columns = [
         "numberOfAgents",
@@ -45,6 +47,8 @@ if __name__ == "__main__":
         "timeTraffic",
     ]
 
+    if any(dissemination_time_ - tikz_table["timeDefault"]) > 0:
+        raise ValueError
 
 
     plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeDefault"])
