@@ -26,13 +26,13 @@ if __name__ == "__main__":
 
     print(par_var)
 
-    for x in range(4):
-        print(x)
-        value = [1.34]
-        val = 4 * 100 * value[0]
-        par_var[x]["dummy"]['number_of_agents_mean'] = val
-        for source in [1,2,5,6]:
-            par_var[x]["vadere"][f"sources.[id=={source}].distributionParameters"] = value
+    #or x in range(4):
+    #    print(x)
+    #    value = [1.34]
+    #    val = 4 * 100 * value[0]
+    #    par_var[x]["dummy"]['number_of_agents_mean'] = val
+    #    for source in [1,2,5,6]:
+    #        par_var[x]["vadere"][f"sources.[id=={source}].distributionParameters"] = value
 
     # for x in range(4,8):
     #     print(x)
