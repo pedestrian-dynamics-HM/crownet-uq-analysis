@@ -1,2 +1,0 @@
- timeToInform95PercentAgents
-0 0.8

@@ -1,2 +1,0 @@
- PoissonParameter
-0 1.378968253968254

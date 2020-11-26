@@ -106,7 +106,7 @@ if __name__ == "__main__":
                 post_changes=PostScenarioChangesBase(apply_default=True),
                 output_path=os.getcwd(),
                 output_folder=output_folder,
-                remove_output=False,
+                remove_output=True,
                 seed_config={"vadere": "fixed", "omnet": "fixed"},
                 env_remote=None,
             )
