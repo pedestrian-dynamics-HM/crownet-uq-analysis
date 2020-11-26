@@ -30,7 +30,10 @@ if __name__ == "__main__":
                 results_dir, f"output_obstacle_{obs}_traf_{traf}_df"
             )
 
-            parameter, dissemination_time = read_data(results, enable_plotting=True)
+            parameter, dissemination_time = read_data(results, enable_plotting=True, remove_failed=False)
+
+            if len(dissemination_time.dropna() ) < len(dissemination_time_):
+                print("WARNING Simulation results missing.")
 
             tikz_table = pd.concat([tikz_table, dissemination_time], axis=1)
 
@@ -43,23 +46,18 @@ if __name__ == "__main__":
         "Traffic",
         "timeDefault",
         "timeNoTraffic",
-        "timeNothing",
         "timeTraffic",
+        "timeNothing",
     ]
 
-    if any(dissemination_time_ - tikz_table["timeDefault"]) > 0:
+    if any(dissemination_time_.to_numpy().ravel() - tikz_table["timeDefault"].to_numpy().ravel()) > 0:
         raise ValueError
 
-
-    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeDefault"])
-    plt.show()
-
-    plt.scatter(tikz_table["numberOfAgents"],tikz_table["timeNoTraffic"] )
-    plt.show()
-    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeNothing"])
-    plt.show()
-
-    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeTraffic"])
+    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeDefault"], label = "default")
+    plt.scatter(tikz_table["numberOfAgents"],tikz_table["timeNoTraffic"], label = "NoTraffic" )
+    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeNothing"], label = "nothing" )
+    plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeTraffic"], label = "TrafficOnly")
+    plt.legend()
     plt.show()
 
     tikz_table.to_csv("results/DataTikzSubResults.dat", sep=" ")

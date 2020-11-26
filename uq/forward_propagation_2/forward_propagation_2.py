@@ -71,7 +71,7 @@ if __name__ == "__main__":
     results = os.path.join(
         os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
     )
-    __, dissemination_time = read_data(results, enable_plotting=False)
+    __, dissemination_time = read_data(results, enable_plotting=False, remove_failed=False)
 
     sim_runs_larger_30s = (
         dissemination_time[dissemination_time["timeToInform95PercentAgents"] > 30]

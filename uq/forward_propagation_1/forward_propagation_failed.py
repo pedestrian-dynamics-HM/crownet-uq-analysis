@@ -48,7 +48,7 @@ if __name__ == "__main__":
     output_folder = os.path.join(folder, "output_failed")
 
     model = CoupledConsoleWrapper(
-        model="Coupled", vadere_tag="200527-1424", omnetpp_tag="200221-1642"
+        model="Coupled", vadere_tag="branch__shape_contains_loop_fix", omnetpp_tag="200221-1642"
     )
 
     setup = CoupledDictVariation(
