@@ -78,6 +78,7 @@ if __name__ == "__main__":
         .index.get_level_values(0)
         .to_numpy()
     )
+    print(f"Found {len(sim_runs_larger_30s)} simulations.")
 
     for obs in [False, True]:
         for traf in [False, True]:
