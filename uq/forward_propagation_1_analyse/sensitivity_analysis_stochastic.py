@@ -7,8 +7,9 @@ import numpy
 from sklearn.model_selection import ShuffleSplit
 
 import matplotlib.pyplot as plt
+import pandas as pd
 
-from pykrige import OrdinaryKriging3D
+from pykrige import OrdinaryKriging3D, UniversalKriging3D
 from sklearn.metrics import r2_score
 
 from forward_propagation_1_analyse.sensitivity_analysis import sobolanalysis
@@ -21,6 +22,7 @@ def kriging(
     ints=None,
     exact_vals=False,
     enable_plotting=False,
+    write_statistics=False,
 ):
 
     parameter_values = parameter_values.to_numpy()
@@ -30,14 +32,14 @@ def kriging(
         ints = numpy.arange(len(dissemination_time))
 
     dissemination_time_log = numpy.log10(dissemination_time[ints])
-    ok3d = OrdinaryKriging3D(
+    ok3d = UniversalKriging3D(
         parameter_values[ints, 0],
         parameter_values[ints, 1],
         parameter_values[ints, 2],
         dissemination_time_log,
         nlags=10,
         enable_plotting=False,
-        variogram_model="exponential",
+        variogram_model="linear",
         exact_values=exact_vals,
     )
 
@@ -46,10 +48,38 @@ def kriging(
     )
     dissemination_time_kriging = 10 ** dissemination_time_kriging_exp.data
 
+    variogram_fit = numpy.array(
+        [
+            ok3d.lags,
+            ok3d.variogram_function(ok3d.variogram_model_parameters, ok3d.lags),
+            ok3d.semivariance,
+        ]
+    ).transpose()
+
+    if write_statistics:
+
+        df = pd.DataFrame(variogram_fit, columns=["lag", "residual", "semi-variance"])
+        df.index.names = ['index']
+        df.to_csv("results/variogramFitPlot.dat", sep = " ", float_format='%.4f')
+
+        residuals = pd.DataFrame(ok3d.get_epsilon_residuals(), columns=["ResidualVal"])
+        residuals.index.names = ['index']
+        residuals.to_csv("results/variogramResiduals.dat", sep = " ", float_format='%.4f')
+
+        Q1, Q2, cR = ok3d.get_statistics()
+
+        f = open("results/variogramStats.dat", "w+")
+        f.write("Statistics of the single surrogate approach\n \n")
+        f.write(f"Q1 = {Q1} -> should be 0 according to Kitanadis \n")
+        f.write(f"Q2 = {Q2} -> should be 1 according to Kitanadis \n" )
+        f.write(f"cR = {cR} -> should be 'small' according to Kitanadis \n")
+        f.close()
+
     if enable_plotting:
 
         ok3d.print_statistics()
         ok3d.display_variogram_model()
+        ok3d.plot_epsilon_residuals()
 
         fig = plt.figure(figsize=plt.figaspect(0.5))
         ax = fig.add_subplot(111, projection="3d")
@@ -85,12 +115,19 @@ if __name__ == "__main__":
 
     models = 100
 
-    results = os.path.join( os.path.dirname(os.getcwd()), "forward_propagation_1/output_df")
+    results = os.path.join(
+        os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
+    )
     parameter, qoi = read_data(results, enable_plotting=False)
 
     # sobol indices for surrogate system
     qoi_surr = kriging(
-        parameter, qoi, ints=numpy.arange(2000), exact_vals=False, enable_plotting=True
+        parameter,
+        qoi,
+        ints=numpy.arange(2000),
+        exact_vals=False,
+        enable_plotting=True,
+        write_statistics=True,
     )
     Si = sobolanalysis(qoi_surr)
     Si["CoD"] = r2_score(y_true=qoi, y_pred=qoi_surr)
@@ -102,9 +139,7 @@ if __name__ == "__main__":
 
     for train_size in train_percentage:
 
-        ints = use_sub_sets(
-            len(parameter), number_sets=models, train_size=train_size
-        )
+        ints = use_sub_sets(len(parameter), number_sets=models, train_size=train_size)
         regression_coef, S1_dist, S2_dist, ST_dist, = list(), list(), list(), list()
 
         for ii in range(ints.shape[-1]):
@@ -114,7 +149,9 @@ if __name__ == "__main__":
                 parameter, qoi, ints[:, ii], exact_vals=exact, enable_plotting=False
             )
 
-            r2_fit = r2_score(y_true=qoi.to_numpy()[ints[:, ii]].ravel(), y_pred=qoi2[ints[:, ii]])
+            r2_fit = r2_score(
+                y_true=qoi.to_numpy()[ints[:, ii]].ravel(), y_pred=qoi2[ints[:, ii]]
+            )
             r2_pred = r2_score(y_true=qoi.to_numpy().ravel(), y_pred=qoi2)
             Si2 = sobolanalysis(qoi2)
 

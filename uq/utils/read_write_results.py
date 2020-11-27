@@ -92,13 +92,13 @@ def read_data(summary, enable_plotting=False, remove_failed = True):
         os.path.join(summary, "metainfo.csv"), index_col=["id", "run_id"]
     )
 
-    degree = pd.read_csv(
-        os.path.join(summary, "degree_informed_extract.csv"), index_col=[0, 1]
-    )
-    degree = degree[["percentageInformed-PID12"]]
-
-    # check results and remove failed simulation runs from database
-    succeeded, failed = get_succesful_simulation_runs(parameter, degree)
+    # degree = pd.read_csv(
+    #     os.path.join(summary, "degree_informed_extract.csv"), index_col=[0, 1]
+    # )
+    # degree = degree[["percentageInformed-PID12"]]
+    #
+    # # check results and remove failed simulation runs from database
+    # succeeded, failed = get_succesful_simulation_runs(parameter, degree)
 
 
     # extract data, remove units
@@ -122,13 +122,13 @@ def read_data(summary, enable_plotting=False, remove_failed = True):
 
     # remove failed simulation runs
 
-    dissemination_time_r = dissemination_time.iloc[succeeded, :]
-    parameter_r = parameter.iloc[succeeded, :]
-
-    if remove_failed == True:
-        dissemination_time = dissemination_time_r
-        parameter = parameter_r
-        print(f"Removed failed simulations {list(failed)} from database.")
+    # dissemination_time_r = dissemination_time.iloc[succeeded, :]
+    # parameter_r = parameter.iloc[succeeded, :]
+    #
+    # if remove_failed == True:
+    #     dissemination_time = dissemination_time_r
+    #     parameter = parameter_r
+    #     print(f"Removed failed simulations {list(failed)} from database.")
     # else:
     #     average_val = dissemination_time_r.mean().to_numpy().ravel()[0]
     #     dissemination_time.iloc[failed, :] = average_val

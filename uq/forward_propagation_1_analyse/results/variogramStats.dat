@@ -1,0 +1,5 @@
+Statistics of the single surrogate approach
+ 
+Q1 = 0.015493869878940095 -> should be 0 according to Kitanadis 
+Q2 = 0.7155847816970091 -> should be 1 according to Kitanadis 
+cR = 0.026314461685316322 -> should be 'small' according to Kitanadis 

@@ -50,8 +50,8 @@ if __name__ == "__main__":
         "timeNothing",
     ]
 
-    if any(dissemination_time_.to_numpy().ravel() - tikz_table["timeDefault"].to_numpy().ravel()) > 0:
-        raise ValueError
+    #if any(dissemination_time_.to_numpy().ravel() - tikz_table["timeDefault"].to_numpy().ravel()) > 0:
+    #    raise ValueError
 
     plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeDefault"], label = "default")
     plt.scatter(tikz_table["numberOfAgents"],tikz_table["timeNoTraffic"], label = "NoTraffic" )
