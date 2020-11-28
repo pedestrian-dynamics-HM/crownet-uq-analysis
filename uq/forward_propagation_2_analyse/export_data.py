@@ -3,6 +3,7 @@ import os
 from utils.read_write_results import read_data, write_sobol_indices_to_file
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 if __name__ == "__main__":
 
@@ -49,9 +50,11 @@ if __name__ == "__main__":
         "timeTraffic",
         "timeNothing",
     ]
+    check_diff = dissemination_time_.to_numpy().ravel() - tikz_table["timeDefault"].to_numpy().ravel()
+    check_diff = np.abs(check_diff)
 
-    #if any(dissemination_time_.to_numpy().ravel() - tikz_table["timeDefault"].to_numpy().ravel()) > 0:
-    #    raise ValueError
+    if np.max(check_diff) > 0.1:
+       raise ValueError("Check your simulation settings. Results of forward propagation could not be reproduced.")
 
     plt.scatter(tikz_table["numberOfAgents"], tikz_table["timeDefault"], label = "default")
     plt.scatter(tikz_table["numberOfAgents"],tikz_table["timeNoTraffic"], label = "NoTraffic" )

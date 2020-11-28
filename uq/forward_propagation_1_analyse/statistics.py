@@ -23,6 +23,15 @@ if __name__ == "__main__":
     stats = stats.round(2)
     stats.to_csv("results/DisseminationTimeStatistics.dat", sep = " ", header=False)
 
+    p1 = len(tikz_table[ tikz_table["timeToInform"] <= 10 ]) / len(tikz_table["timeToInform"])
+    p2 = len(tikz_table[tikz_table["timeToInform"] <= 30]) / len(tikz_table["timeToInform"])
+
+    f = open("results/ProbabilitiesFailure.dat", "w+")
+    f.write("Forward propagation 1, results\n \n")
+    f.write(f"Probabilility time <= 10 {p1} \n")
+    f.write(f"Probabilility time <= 30 {p2} \n")
+    f.close()
+
     print("Finished.")
 
 
