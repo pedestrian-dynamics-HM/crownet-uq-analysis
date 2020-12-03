@@ -32,6 +32,7 @@ def kriging(
         ints = numpy.arange(len(dissemination_time))
 
     dissemination_time_log = numpy.log10(dissemination_time[ints])
+
     ok3d = UniversalKriging3D(
         parameter_values[ints, 0],
         parameter_values[ints, 1],
@@ -58,23 +59,21 @@ def kriging(
 
     if write_statistics:
 
-
-
         df = pd.DataFrame(variogram_fit, columns=["lag", "residual", "semi-variance"])
-        df.index.names = ['index']
-        df.to_csv("results/variogramFitPlot.dat", sep = " ", float_format='%.4f')
+        df.index.names = ["index"]
+        df.to_csv("results/variogramFitPlot.dat", sep=" ", float_format="%.4f")
 
         residuals = pd.DataFrame(ok3d.get_epsilon_residuals(), columns=["ResidualVal"])
-        residuals.index.names = ['index']
+        residuals.index.names = ["index"]
         k2, p = normaltest(residuals.values)
-        residuals.to_csv("results/variogramResiduals.dat", sep = " ", float_format='%.4f')
+        residuals.to_csv("results/variogramResiduals.dat", sep=" ", float_format="%.4f")
 
         Q1, Q2, cR = ok3d.get_statistics()
 
         f = open("results/variogramStats.dat", "w+")
         f.write("Statistics of the single surrogate approach\n \n")
         f.write(f"Q1 = {Q1} -> should be 0 according to Kitanadis \n")
-        f.write(f"Q2 = {Q2} -> should be 1 according to Kitanadis \n" )
+        f.write(f"Q2 = {Q2} -> should be 1 according to Kitanadis \n")
         f.write(f"cR = {cR} -> should be 'small' according to Kitanadis \n")
         f.write(f"p-value (normal distributed): {p} \n")
         f.close()
