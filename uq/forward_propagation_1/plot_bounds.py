@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
     par_var = get_sampling()
-    par_var = [par_var(x) for x in [169,188,1552]]
+    par_var = [par_var[x] for x in [187,188,1552]]
 
     folder = os.path.abspath("../external_data/")
     output_folder = os.path.join(folder, "output_plots")
