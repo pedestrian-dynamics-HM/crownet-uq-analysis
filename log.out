@@ -1,0 +1,17 @@
+20:17:29,545   INFO STDOUTERR:15 - Redirect StdOut and StdErr
+20:17:29,547   INFO VadereApplication:25 - starting Vadere GUI...
+20:17:29,566   INFO VadereConfig:66 - Use config file from path /home/christina/.config/vadere.conf
+20:17:31,276   INFO IOVadere:57 - read project: /home/christina/repos/rover-main/rover/simulations/simple_detoure_suqc_traffic/vadere/vadere.project
+20:17:31,296   INFO IOVadere:67 - analyzed scenario files.
+20:17:31,435   INFO IOVadere:88 - analyzed: 1, migrated: 0, upToDate: 1, notMigratable: 0
+20:17:31,436   INFO IOVadere:93 - project loaded: simple_detoure
+20:17:31,444   INFO ActionLoadProject:113 - refreshed output table - 2
+20:17:31,446   INFO ProjectOutput:160 - output directory '/home/christina/repos/rover-main/rover/simulations/simple_detoure_suqc_traffic/vadere/output' of project 'simple_detoure' is not valid.
+20:17:31,481   INFO ProjectView:614 - selected scenario 'simple_detour_100x177_miat1.25'
+20:17:31,726   INFO DataProcessingView:96 - switch to gui view
+20:17:32,033   INFO ProjectView:620 - repainted output table
+20:17:32,034   INFO ActionLoadProject:117 - selected the first scenario
+20:17:32,045   INFO ActionLoadProject:124 - project 'simple_detoure' loaded.
+20:17:32,206   WARN CLUtils:94 - No OpenCL support: OpenCL error [0xFFFFFFFF, -1]
+20:18:31,738   INFO ActionLoadProject:83 - User canceled loadFromFilesystem project.
+20:18:32,723   INFO ActionCloseApplication:28 - closing application...
