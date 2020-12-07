@@ -2,6 +2,10 @@
 
 This repository contains the code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd" to be published in the Special Issue "Statistical Physics and Social Sciences" in Entropy published by MDPI.
 
+## System requirements (hardware)
+A system with >=250GB RAM and >=80 cores is required, because the simulations take ~6 days.
+
+
 ## Init and update submodules
 Init the submodules if necessary
 Use
@@ -43,4 +47,31 @@ Start the forward propagation
 ```
 python3 forward_propagation_1/forward_propagation.py
 ```
+If the simulation fails, restart the script.
+
 ## Analyse the results
+After the simulation has finished, we analyse the results.
+We compute the statistics of the resulting empirical distribution.
+
+```
+python3 forward_propagation_1_analyse/statistics.py
+
+```
+We analyse why information dissemination sometimes failes
+```
+python3 forward_propagation_2/forward_propagation_2.py
+python3 forward_propagation_2_analyse/export_data.py
+
+```
+
+We use sensitivity analysis to quantify the influence of the parameters
+
+```
+python3 forward_propagation_1_analyse/sensitivity_analysis.py
+```
+We use a kriging model and repeat the sensitivity analysis
+```
+python3 forward_propagation_1_analyse/sensitivity_analysis_stochastic.py
+```
+
+

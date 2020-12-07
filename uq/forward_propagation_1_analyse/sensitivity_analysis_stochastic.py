@@ -2,14 +2,14 @@ import os
 
 from scipy.stats import norm, normaltest
 
-from SALib.analyze.sobol import analyze, create_Si_dict
+from SALib.analyze.sobol import create_Si_dict
 import numpy
 from sklearn.model_selection import ShuffleSplit
 
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from pykrige import OrdinaryKriging3D, UniversalKriging3D
+from pykrige import UniversalKriging3D
 from sklearn.metrics import r2_score
 
 from forward_propagation_1_analyse.sensitivity_analysis import sobolanalysis
@@ -116,7 +116,8 @@ def use_sub_sets(number_samples, number_sets, train_size=0.3):
 
 if __name__ == "__main__":
 
-    models = 100
+    models = 100 # use the same number of cross-validation models as used in the bootstrapping procedure
+    conf_level = 0.95 # 5% / 95% confidence interval
 
     results = os.path.join(
         os.path.dirname(os.getcwd()), "forward_propagation_1/output_df"
@@ -170,7 +171,7 @@ if __name__ == "__main__":
 
         Si_surrogate = create_Si_dict(D=3, calc_second_order=True)
 
-        Z = norm.ppf(0.5 + 0.95 / 2)
+        Z = norm.ppf(0.5 +  conf_level / 2)
         Si_surrogate["S1"] = S1_dist.mean(axis=0)
         Si_surrogate["S1_conf"] = Z * S1_dist.std(ddof=1, axis=0)
 

@@ -12,7 +12,7 @@ echo "#######################################"
 echo "Pull rover-main"
 pushd "$base/rover-main"
 git pull
-git checkout "24df459da93147117ea8e5402176deb7d93ce5fd"
+git checkout "947c9c2e975736b3a55c829f41832064a9edd1b5"
 git submodule update --recursive
 
 echo "Pull suqc"
