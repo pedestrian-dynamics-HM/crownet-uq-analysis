@@ -120,21 +120,6 @@ def read_data(summary, enable_plotting=False, remove_failed = True):
     dissemination_time = dissemination_time[["timeToInform95PercentAgents"]]
     dissemination_time = dissemination_time.sort_index()
 
-    # remove failed simulation runs
-
-    # dissemination_time_r = dissemination_time.iloc[succeeded, :]
-    # parameter_r = parameter.iloc[succeeded, :]
-    #
-    # if remove_failed == True:
-    #     dissemination_time = dissemination_time_r
-    #     parameter = parameter_r
-    #     print(f"Removed failed simulations {list(failed)} from database.")
-    # else:
-    #     average_val = dissemination_time_r.mean().to_numpy().ravel()[0]
-    #     dissemination_time.iloc[failed, :] = average_val
-    #     print(f"WARNING Assigned average dissemination time value of succesful simulatioon runs ({average_val:4.2f}) to failed simulations runs {list(failed)}.")
-
-
     if enable_plotting:
         p1 = parameter["number_of_agents_mean"].values
         p2 = parameter["**wlan[*].radio.transmitter.power"].values

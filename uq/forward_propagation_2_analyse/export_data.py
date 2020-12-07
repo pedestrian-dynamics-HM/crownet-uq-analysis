@@ -31,7 +31,7 @@ if __name__ == "__main__":
                 results_dir, f"output_obstacle_{obs}_traf_{traf}_df"
             )
 
-            parameter, dissemination_time = read_data(results, enable_plotting=True, remove_failed=False)
+            parameter, dissemination_time = read_data(results, enable_plotting=False, remove_failed=False)
 
             if len(dissemination_time.dropna() ) < len(dissemination_time_):
                 print("WARNING Simulation results missing.")

@@ -1,9 +1,9 @@
 count 2000.0
-mean 6.92
-std 6.01
+mean 6.88
+std 5.65
 min 2.8
 25% 4.8
 50% 4.8
 75% 7.2
-max 100.8
+max 69.2
 mode 4.8
