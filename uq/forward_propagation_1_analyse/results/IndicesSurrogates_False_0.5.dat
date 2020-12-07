@@ -8,42 +8,42 @@ If the data is a matrix, interaction between the elements are described.
 In this case, use the reference from above. 
 
 
-S1 >>> [ 0.766  0.121 -0.   ]
+S1 >>> [ 0.769  0.121 -0.   ]
 
-S1_conf >>> [0.056 0.034 0.   ]
+S1_conf >>> [0.056 0.035 0.   ]
 
-ST >>> [0.824 0.279 0.   ]
+ST >>> [0.827 0.276 0.   ]
 
-ST_conf >>> [0.038 0.056 0.   ]
+ST_conf >>> [0.035 0.055 0.   ]
 
-S2 >>> [[   nan  0.14  -0.027]
- [   nan    nan  0.064]
+S2 >>> [[   nan  0.138 -0.026]
+ [   nan    nan  0.062]
  [   nan    nan    nan]]
 
 S2_conf >>> [[  nan 0.04  0.02 ]
  [  nan   nan 0.031]
  [  nan   nan   nan]]
 
-CoD >>> 0.245
+CoD >>> 0.271
 
-CoD_conf >>> 0.034
+CoD_conf >>> 0.037
 
 95-Confidence Intervals of S1, S2 and ST 
 LB: Lower Bound, UB: Upper bound
 
-S1CI95LB >>> [ 0.71   0.087 -0.   ]
+S1CI95LB >>> [ 0.713  0.086 -0.   ]
 
-S1CI95UB >>> [0.822 0.155 0.   ]
+S1CI95UB >>> [0.824 0.155 0.   ]
 
-S2CI95LB >>> [[   nan  0.1   -0.047]
- [   nan    nan  0.033]
+S2CI95LB >>> [[   nan  0.098 -0.046]
+ [   nan    nan  0.031]
  [   nan    nan    nan]]
 
-S2CI95UB >>> [[   nan  0.181 -0.006]
- [   nan    nan  0.094]
+S2CI95UB >>> [[   nan  0.178 -0.005]
+ [   nan    nan  0.093]
  [   nan    nan    nan]]
 
-STCI95LB >>> [ 0.786  0.223 -0.   ]
+STCI95LB >>> [ 0.792  0.221 -0.   ]
 
-STCI95UB >>> [0.861 0.335 0.   ]
+STCI95UB >>> [0.862 0.332 0.   ]
 

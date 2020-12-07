@@ -4,8 +4,6 @@ from SALib.analyze.sobol import analyze
 from utils.imports import problem_definition, calc_second_order, get_seed
 from utils.read_write_results import read_data, write_sobol_indices_to_file
 
-import matplotlib.pyplot as plt
-
 def sobolanalysis(qoi):
 
     problem = problem_definition()
