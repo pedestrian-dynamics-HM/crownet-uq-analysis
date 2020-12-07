@@ -1,0 +1,5 @@
+,,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter,Parameter
+,,dummy,omnet,omnet,omnet,omnet,omnet,vadere,vadere,vadere,vadere,vadere,vadere
+,,number_of_agents_mean,**wlan[*].radio.transmitter.power,*.hostMobile[*].app[1].messageLength,*.manager.host,*.manager.useVadereSeed,sim-time-limit,attributesSimulation.fixedSeed,attributesSimulation.useFixedSeed,sources.[id==1].distributionParameters,sources.[id==2].distributionParameters,sources.[id==5].distributionParameters,sources.[id==6].distributionParameters
+id,run_id,,,,,,,,,,,,
+0,0,183.0,1.64mW,3478B,"""vadere_Sample__0_0""",true,300s,65722447231342458,True,[0.4575],[0.4575],[0.4575],[0.4575]
