@@ -102,6 +102,7 @@ def get_sampling(nr_samples=2000, is_test=False):
             "omnet": {
                 "*.hostMobile[*].app[1].messageLength": r[5],
                 "**wlan[*].radio.transmitter.power": r[6],
+                "sim-time-limit" : "300s",
                 #"*.radioMedium.obstacleLoss.typename": '"DielectricObstacleLoss"',
             },
         }
@@ -117,9 +118,10 @@ if __name__ == "__main__":
 
     ## Define which parameters are varied and store it in par_var
     par_var = get_sampling()
+    par_var = [par_var[278]]
 
     folder = os.path.abspath("../external_data/")
-    output_folder = os.path.join(folder, "output")
+    output_folder = os.path.join(folder, "output_100s")
 
     model = CoupledConsoleWrapper(
         model="Coupled", vadere_tag="branch__shape_contains_loop_fix", omnetpp_tag="200221-1642"
@@ -146,7 +148,7 @@ if __name__ == "__main__":
         )
 
     # Save results
-    summary = os.path.join(os.getcwd(),"output_df")
+    summary = os.path.join(os.getcwd(),"output_df100")
     if os.path.exists(summary):
         shutil.rmtree(summary)
 
