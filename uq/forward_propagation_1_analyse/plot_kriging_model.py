@@ -15,7 +15,7 @@ if __name__ == "__main__":
         qoi_surr = pickle.load(open(var_name, "rb"))
     except (OSError, IOError) as e:
         # sobol indices for surrogate system
-        qoi_surr = kriging(
+        qoi_surr, ssd = kriging(
             parameter,
             qoi,
             ints=numpy.arange(2000),
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         "Real",
         "Kriging"]
 
-    parameter.to_csv("results/KrigingResults.dat", sep=" ")
+    parameter.to_csv("results/KrigingResults.dat", sep=" ", float_format='%.3f' )
 
 
     parameter['p1Group'] = parameter['numberOfAgents'].round(-3)

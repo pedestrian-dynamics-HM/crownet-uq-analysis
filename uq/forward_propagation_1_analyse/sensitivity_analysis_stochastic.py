@@ -5,6 +5,7 @@ from scipy.stats import norm, normaltest
 from SALib.analyze.sobol import create_Si_dict
 import numpy
 from sklearn.model_selection import ShuffleSplit
+from sklearn import preprocessing
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -33,10 +34,20 @@ def kriging(
 
     dissemination_time_log = numpy.log10(dissemination_time[ints])
 
+    # The transformation of the data is actually not necessary,
+    # because the Kriging pipeline scales the data itself.
+    # However, we transform the data HERE to point this out.
+
+    min_max_scaler = preprocessing.MinMaxScaler()
+    m1 = min_max_scaler.fit(parameter_values[ints, 0].reshape(-1, 1))
+    m2 = min_max_scaler.fit(parameter_values[ints, 1].reshape(-1, 1))
+    m3 = min_max_scaler.fit(parameter_values[ints, 2].reshape(-1, 1))
+
+
     ok3d = UniversalKriging3D(
-        parameter_values[ints, 0],
-        parameter_values[ints, 1],
-        parameter_values[ints, 2],
+        m1.transform(parameter_values[ints, 0].reshape(-1, 1)).ravel(),
+        m2.transform(parameter_values[ints, 1].reshape(-1, 1)).ravel(),
+        m3.transform(parameter_values[ints, 2].reshape(-1, 1)).ravel(),
         dissemination_time_log,
         nlags=10,
         enable_plotting=False,
@@ -45,9 +56,13 @@ def kriging(
     )
 
     dissemination_time_kriging_exp, ss3d = ok3d.execute(
-        "points", parameter_values[:, 0], parameter_values[:, 1], parameter_values[:, 2]
+        "points",
+        m1.transform(parameter_values[:, 0].reshape(-1, 1)).ravel(),
+        m2.transform(parameter_values[:, 1].reshape(-1, 1)).ravel(),
+        m3.transform(parameter_values[:, 2].reshape(-1, 1)).ravel(),
     )
     dissemination_time_kriging = 10 ** dissemination_time_kriging_exp.data
+    ss3d = 10** ss3d.data
 
     variogram_fit = numpy.array(
         [
@@ -100,7 +115,7 @@ def kriging(
         )
         plt.show(block=False)
 
-    return dissemination_time_kriging
+    return dissemination_time_kriging, ss3d
 
 
 def use_sub_sets(number_samples, number_sets, train_size=0.3):
@@ -125,7 +140,7 @@ if __name__ == "__main__":
     parameter, qoi = read_data(results, enable_plotting=False)
 
     # sobol indices for surrogate system
-    qoi_surr = kriging(
+    qoi_surr, ssd = kriging(
         parameter,
         qoi,
         ints=numpy.arange(2000),
@@ -149,7 +164,7 @@ if __name__ == "__main__":
         for ii in range(ints.shape[-1]):
             print(f"compute model {ii+1}")
 
-            qoi2 = kriging(
+            qoi2, ssd = kriging(
                 parameter, qoi, ints[:, ii], exact_vals=exact, enable_plotting=False
             )
 

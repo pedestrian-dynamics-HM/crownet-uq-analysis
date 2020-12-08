@@ -1,6 +1,6 @@
 Statistics of the single surrogate approach
  
-Q1 = 0.014095333141310807 -> should be 0 according to Kitanadis 
-Q2 = 0.7131566084231268 -> should be 1 according to Kitanadis 
-cR = 0.025879899529252768 -> should be 'small' according to Kitanadis 
-p-value (normal distributed): [3.58534976e-81] 
+Q1 = 0.014095333141077554 -> should be 0 according to Kitanadis 
+Q2 = 0.7131566084053742 -> should be 1 according to Kitanadis 
+cR = 0.025879899529325786 -> should be 'small' according to Kitanadis 
+p-value (normal distributed): [3.58534974e-81] 
