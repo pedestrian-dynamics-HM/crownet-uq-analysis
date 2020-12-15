@@ -4,3 +4,4 @@
 [submodule "rover-main"]
 	path = rover-main
 	url = https://github.com/roVer-HM/rover-main.git
+	branch = mdpi-rover-2020
