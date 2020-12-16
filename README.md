@@ -2,6 +2,26 @@
 
 This repository contains the code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd" to be published in the Special Issue "Statistical Physics and Social Sciences" in Entropy published by MDPI.
 
+## Contents of this repository
+This repository contains 
+* the source code of the **CrowNet** simulator that is included as git submodule.
+* the source code and the result data that we use in the forward propgation and in the sensitivity analyses. 
+
+### CrowNet
+
+**CrowNet** is developed by the members of the research project *Improving the efficiency of traffic infrastructures by robust internetworking (roVer)* of the Hochschule Muenchen University of Applied Sciences.
+See https://www.hm.edu/en/research/projects/project_details/wischhof_koester/rover.en.html for information about *roVer*.
+
+*Currently, CrowNet is embedded as git-submodule rover-main*.
+We plan to change the repository name from rover-main to CrowNet in 2021.
+
+### Result data
+The results data files are stored in ```uq/..``` next to the scripts that are used to generate the data.
+
+### Scripts for uncertainty quantification
+The scripts used for uncertainty can be found under ```uq/..```.
+
+
 ## System requirements (hardware)
 A system with >=250GB RAM and >=80 cores is required, because the simulations take ~6 days.
 
