@@ -4,15 +4,16 @@ This repository contains the code for the article "Analysis of information disse
 
 ## Contents of this repository
 This repository contains 
-* the source code of the **CrowNet** simulator that is included as git submodule.
+* the source code of the **CrowNet** simulator. It is included as submodule.
 * the source code and the result data that we use in the forward propgation and in the sensitivity analyses. 
 
 ### CrowNet
 
-**CrowNet** is developed by the members of the research project *Improving the efficiency of traffic infrastructures by robust internetworking (roVer)* of the Hochschule Muenchen University of Applied Sciences.
-See https://www.hm.edu/en/research/projects/project_details/wischhof_koester/rover.en.html for information about *roVer*.
+**CrowNet** is developed by the members of the research project *Improving the efficiency of traffic infrastructures by robust internetworking (roVer)* at the Hochschule Muenchen University of Applied Sciences.
 
-*Currently, CrowNet is embedded as git-submodule rover-main*.
+See https://www.hm.edu/en/research/projects/project_details/wischhof_koester/rover.en.html for information about the *roVer* project.
+
+**Currently, CrowNet is embedded as git-submodule rover-main**.
 We plan to change the repository name from rover-main to CrowNet in 2021.
 
 ### Result data
