@@ -3,7 +3,7 @@
 ## Contents of this repository
 This repository contains 
 * the source code of the **CrowNet** simulator. It is included as submodule.
-* the source code and the result data that we use in the forward propgation and in the sensitivity analyses. 
+* the source code and the result data that we use in the forward propagation and in the sensitivity analyses. 
 
 ### CrowNet
 
