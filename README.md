@@ -1,6 +1,6 @@
-# Code for MDPI Entropy contribution
+# Code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd"
 
-This repository contains the code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd" to be published in the Special Issue "Statistical Physics and Social Sciences" in Entropy published by MDPI.
+This repository contains the code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd".
 
 ## Contents of this repository
 This repository contains 
