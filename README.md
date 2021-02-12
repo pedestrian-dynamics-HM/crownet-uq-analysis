@@ -1,6 +1,4 @@
-# Code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd"
-
-This repository contains the code for the article "Analysis of information dissemination through ad-hoc networks in a moving crowd".
+# Code for the article "Analysis of information dissemination through Direct Communication in a moving crowd"
 
 ## Contents of this repository
 This repository contains 
