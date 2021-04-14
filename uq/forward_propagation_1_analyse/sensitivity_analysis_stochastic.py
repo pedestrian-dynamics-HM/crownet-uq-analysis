@@ -43,7 +43,6 @@ def kriging(
     m2 = min_max_scaler.fit(parameter_values[ints, 1].reshape(-1, 1))
     m3 = min_max_scaler.fit(parameter_values[ints, 2].reshape(-1, 1))
 
-
     ok3d = UniversalKriging3D(
         m1.transform(parameter_values[ints, 0].reshape(-1, 1)).ravel(),
         m2.transform(parameter_values[ints, 1].reshape(-1, 1)).ravel(),
@@ -54,6 +53,10 @@ def kriging(
         variogram_model="linear",
         exact_values=exact_vals,
     )
+
+    #Q1 = ok3d.get_statistics()[0]
+    #if Q1 > (2 / numpy.sqrt(len(parameter_values) - 1)):
+    #    raise ValueError(f"Q1 value is {Q1}.")
 
     dissemination_time_kriging_exp, ss3d = ok3d.execute(
         "points",
@@ -115,7 +118,7 @@ def kriging(
         )
         plt.show(block=False)
 
-    return dissemination_time_kriging, ss3d
+    return dissemination_time_kriging, ss3d, ok3d.get_statistics()[0], ok3d.get_statistics()[1]
 
 
 def use_sub_sets(number_samples, number_sets, train_size=0.3):
@@ -139,8 +142,8 @@ if __name__ == "__main__":
     )
     parameter, qoi = read_data(results, enable_plotting=False)
 
-    # sobol indices for surrogate system
-    qoi_surr, ssd = kriging(
+    #sobol indices for surrogate system
+    qoi_surr, ssd, __, __ = kriging(
         parameter,
         qoi,
         ints=numpy.arange(2000),
@@ -158,15 +161,22 @@ if __name__ == "__main__":
 
     for train_size in train_percentage:
 
-        ints = use_sub_sets(len(parameter), number_sets=models, train_size=train_size)
+        ints = use_sub_sets(len(parameter), number_sets=models*1000, train_size=train_size)
         regression_coef, S1_dist, S2_dist, ST_dist, = list(), list(), list(), list()
 
-        for ii in range(ints.shape[-1]):
-            print(f"compute model {ii+1}")
+        failed = 0
+        for ii in range(models):
+            info = f"Compute model {ii+1} with [ {ints[0, ii]}... ]"
+            print(f"Compute {info}")
 
-            qoi2, ssd = kriging(
+            qoi2, ssd, Q1, Q2 = kriging(
                 parameter, qoi, ints[:, ii], exact_vals=exact, enable_plotting=False
             )
+
+            if Q1 > (2 / numpy.sqrt(len(parameter) - 1)):
+                print(f"Skip {info}, because Quality is not sufficient.")
+                failed += 1
+                continue
 
             r2_fit = r2_score(
                 y_true=qoi.to_numpy()[ints[:, ii]].ravel(), y_pred=qoi2[ints[:, ii]]
@@ -178,6 +188,10 @@ if __name__ == "__main__":
             S1_dist.append(Si2["S1"])
             S2_dist.append(Si2["S2"])
             ST_dist.append(Si2["ST"])
+
+            if (ii + 1 - failed) != len(regression_coef):
+                raise ValueError("Model with low quality not removed successfully.")
+
 
         regression_coef = numpy.array(regression_coef)
         S1_dist = numpy.array(S1_dist)
