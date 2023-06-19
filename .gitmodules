@@ -1,6 +1,7 @@
 [submodule "suq-controller"]
 	path = suq-controller
-	url = https://gitlab.lrz.de/vadere/suq-controller.git
+	url = https://github.com/roVer-HM/suq-controller.git
+        branch = diss_info_study
 [submodule "rover-main"]
 	path = rover-main
 	url = https://github.com/roVer-HM/crownet.git
