@@ -3,5 +3,5 @@
 	url = https://gitlab.lrz.de/vadere/suq-controller.git
 [submodule "rover-main"]
 	path = rover-main
-	url = https://github.com/roVer-HM/rover-main.git
+	url = https://github.com/roVer-HM/crownet.git
 	branch = mdpi-rover-2020
